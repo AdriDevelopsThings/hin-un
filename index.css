@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'hazard-board-font';
+    src: url('hbfont.ttf');
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.hazard-board {
+    width: 50rem;
+    aspect-ratio: 25 / 20;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.hazard-board th, td {
+    border: 2rem solid black;
+}
+
+.hazard-board .line {
+    background-color: #fe9900;
+    aspect-ratio: 25 / 9;
+}
+
+.hazard-board input {
+    border: none;
+    outline: none;
+    padding: 0;
+
+    background-color: #fe9900;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'hazard-board-font', sans-serif;
+    font-size: 15rem;
+}
+
+.no-list-style {
+    list-style: none;
+    padding: 0;
+}
+
+#description-first-line {
+    display: none;
+}
+
+#description-second-line {
+    display: none
+}

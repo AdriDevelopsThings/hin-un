@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gefahrentafel</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <table class="hazard-board">
+        <tr class="line">
+            <td><input type="text" id="first-line-input"></td>
+        </tr>
+        <tr class="line">
+            <td><input type="text" id="second-line-input"></td>
+        </tr>
+    </table>
+
+    <div id="description">
+        <h1>Bedeutung</h1>
+        <div id="description-first-line">
+            <h2>Gefahrnummer</h2>
+            <div id="hin-digits">
+                <h3>Bedeutung der Kennziffern</h3>
+                <ul></ul>
+            </div>
+            <div id="hin-combination">
+                <p>Bedeutung der Kombination: <span></span></p>
+            </div>
+        </div>
+        <div id="description-second-line">
+            <h2>UN Nummer</h2>
+            <ul class="no-list-style">
+                <li>Stoff: <span class="un-description"></span></li>
+                <li>Klasse: <span class="un-class"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="sources">
+        <h1>Quellen</h1>
+        <ul></ul>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
