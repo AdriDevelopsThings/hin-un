@@ -155,7 +155,7 @@ const updateResults = async () => {
 
 document.getElementById('first-line-input').onchange = updateResults
 document.getElementById('second-line-input').onchange = updateResults
-document.getElementById('first-line-input').onkeydown = updateResults
-document.getElementById('second-line-input').onkeydown = updateResults
+document.getElementById('first-line-input').onkeyup = updateResults
+document.getElementById('second-line-input').onkeyup = updateResults
 
 document.addEventListener('DOMContentLoaded', loadData)
