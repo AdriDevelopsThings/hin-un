@@ -24,6 +24,9 @@ export default [
       'react-hooks': reactHooks,
     },
     rules: {
+      'no-extra-semi': 'error',
+      'prefer-const': 'error',
+      quotes: ['warn', 'single'],
       ...reactHooks.configs.recommended.rules,
     },
   },
