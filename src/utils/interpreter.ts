@@ -26,7 +26,7 @@ export function interpretHin(hin: string): HinData {
     }
     const combinationMeaning = data.hin.combinations[hin as keyof typeof data.hin.combinations]
     return {
-        digits: digitOutput,
+        digits: [...new Set(digitOutput)],
         combination: combinationMeaning
     }
 }
