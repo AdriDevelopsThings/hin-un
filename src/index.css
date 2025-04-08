@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'hazard-board-font';
+    src: url('../static/hbfont.ttf');
+}
+
+body {
+    font-family: sans-serif;
+}
