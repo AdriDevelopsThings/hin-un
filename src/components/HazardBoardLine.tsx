@@ -12,7 +12,7 @@ export default function HazardBoardLine({ content, setContent }: Props) {
     useEffect(() => {
         if (columnRef.current) {
             const updateFontSize = () => {
-                setFontSize(Math.round(columnRef.current!.clientHeight * 0.7))
+                setFontSize(Math.round(columnRef.current!.clientHeight * 0.8))
             }
 
             updateFontSize()
