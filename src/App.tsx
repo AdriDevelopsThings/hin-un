@@ -11,10 +11,8 @@ const App = () => {
   return (
     <Container>
       <HazardBoard>
-        <tbody>
-          <HazardBoardLine content={hinContent} setContent={setHinContent} />
-          <HazardBoardLine content={unContent} setContent={setUnContent} />
-        </tbody>
+        <HazardBoardLine first={true} content={hinContent} setContent={setHinContent} />
+        <HazardBoardLine first={false} content={unContent} setContent={setUnContent} />
       </HazardBoard>
 
       <div>

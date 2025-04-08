@@ -12,7 +12,7 @@ export const Container = styled.div`
     }
 `
 
-export const HazardBoard = styled.table`
+export const HazardBoard = styled.div`
     width: 50vw;
     aspect-ratio: 25 / 20;
     border-spacing: 0;
@@ -24,21 +24,25 @@ export const HazardBoard = styled.table`
     }
 `
 
-export const HazardBoardRow = styled.tr`
-    border: 1.75vw solid black;
+const HazardBoardRow = styled.div`
     background-color: #fe9900;
     aspect-ratio: 25 / 9;
 
+    border-style: solid;
+    border-color: black;
+`
+
+export const HazardBoardFirstRow = styled(HazardBoardRow)`
+    border-width: 1.75vw 1.75vw 0.875vw;
     @media only screen and (max-width: 800px) {
-        border: 3vw solid black;
+        border-width: 3vw 3vw 1.5vw;
     }
 `
 
-export const HazardBoardColumn = styled.td`
-    border: 1.75vw solid black;
-
+export const HazardBoardSecondRow = styled(HazardBoardRow)`
+    border-width: 0.875vw 1.75vw 1.75vw;
     @media only screen and (max-width: 800px) {
-        border: 3vw solid black;
+        border-width: 1.5vw 3vw 3vw;
     }
 `
 
@@ -55,7 +59,6 @@ export const HazardBoardInput = styled.input<{ $fontSize: number }>`
     font-size: ${props => props.$fontSize}px;
 
     appearance: textfield;
-    /* TODO */
     -moz-appearance: textfield;
     &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
         -webkit-appearance: none;
