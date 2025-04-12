@@ -25,7 +25,7 @@ export default function HazardBoardLine({ content, setContent, first }: Props) {
 
     const onChange = useCallback((e: ChangeEvent) => {
         const value = (e.target as HTMLInputElement).value
-        if (value.length <= 4) {
+        if (value.match(/^\d{0,4}$/)) {
             setContent(value)
         }
     }, [setContent])
@@ -33,13 +33,13 @@ export default function HazardBoardLine({ content, setContent, first }: Props) {
     if (first) {
         return ( 
             <HazardBoardFirstRow ref={columnRef}>
-                <HazardBoardInput type='number' value={content} onChange={onChange} $fontSize={fontSize} />
+                <HazardBoardInput value={content} onChange={onChange} $fontSize={fontSize} />
             </HazardBoardFirstRow>
         )
     } else {
         return ( 
             <HazardBoardSecondRow ref={columnRef}>
-                <HazardBoardInput type='number' value={content} onChange={onChange} $fontSize={fontSize} />
+                <HazardBoardInput value={content} onChange={onChange} $fontSize={fontSize} />
             </HazardBoardSecondRow>
         )
     }
