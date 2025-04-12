@@ -1,5 +1,5 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { HazardBoardFirstRow, HazardBoardInput, HazardBoardSecondRow } from '../style';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { HazardBoardFirstRow, HazardBoardInput, HazardBoardSecondRow } from '../style'
 
 type Props = {
     content: string,
@@ -14,7 +14,7 @@ export default function HazardBoardLine({ content, setContent, first }: Props) {
     useEffect(() => {
         if (columnRef.current) {
             const updateFontSize = () => {
-                setFontSize(Math.round(columnRef.current!.clientHeight * 0.8))
+                setFontSize(Math.round(columnRef.current!.clientHeight))
             }
             updateFontSize()
             const observer = new ResizeObserver(updateFontSize)

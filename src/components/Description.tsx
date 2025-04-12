@@ -1,5 +1,5 @@
-import { DescriptionContainer } from '../style';
-import { interpretHin, interpretUn } from '../utils/interpreter';
+import { DescriptionContainer } from '../style'
+import { interpretHin, interpretUn } from '../utils/interpreter'
 
 type Props = {
     hinContent: string,

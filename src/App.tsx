@@ -1,8 +1,8 @@
-import { Container, HazardBoard } from './style';
-import Sources from './components/Sources';
-import HazardBoardLine from './components/HazardBoardLine';
-import { useEffect, useState } from 'react';
-import Description from './components/Description';
+import { Container, HazardBoard } from './style'
+import Sources from './components/Sources'
+import HazardBoardLine from './components/HazardBoardLine'
+import { useEffect, useState } from 'react'
+import Description from './components/Description'
 
 const App = () => {
   const [hinContent, setHinContent] = useState('')
@@ -18,6 +18,18 @@ const App = () => {
     }
     if (un) {
       setUnContent(un)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (
+      typeof navigator !== 'undefined' &&
+      window.location.hostname !== 'localhost' &&
+      navigator.serviceWorker
+    ) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker got registered'))
+        .catch(e => console.error(`Error while registering Service Worker: ${e}`))
     }
   }, [])
 
@@ -46,7 +58,7 @@ const App = () => {
         <Sources />
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default App;
+export default App
