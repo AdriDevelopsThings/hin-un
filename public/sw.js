@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hin-hun-v1.0.1'
+const CACHE_NAME = 'hin-hun-v1.0.2'
 
 self.addEventListener('install', _event => {
     self.skipWaiting()
