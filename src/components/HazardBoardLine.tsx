@@ -33,13 +33,13 @@ export default function HazardBoardLine({ content, setContent, first }: Props) {
     if (first) {
         return ( 
             <HazardBoardFirstRow ref={columnRef}>
-                <HazardBoardInput value={content} onChange={onChange} $fontSize={fontSize} />
+                <HazardBoardInput type='text' inputMode='numeric' value={content} onChange={onChange} $fontSize={fontSize} />
             </HazardBoardFirstRow>
         )
     } else {
         return ( 
             <HazardBoardSecondRow ref={columnRef}>
-                <HazardBoardInput value={content} onChange={onChange} $fontSize={fontSize} />
+                <HazardBoardInput type='text' inputMode='numeric' value={content} onChange={onChange} $fontSize={fontSize} />
             </HazardBoardSecondRow>
         )
     }
