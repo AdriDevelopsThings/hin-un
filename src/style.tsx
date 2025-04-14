@@ -51,6 +51,7 @@ export const HazardBoardInput = styled.input<{ $fontSize: number }>`
     outline: none;
     padding: 0;
 
+    color: black;
     background-color: #fe9900;
     text-align: center;
     width: 100%;
