@@ -30,6 +30,8 @@ const HazardBoardRow = styled.div`
 
     border-style: solid;
     border-color: black;
+
+    container-type: size;
 `
 
 export const HazardBoardFirstRow = styled(HazardBoardRow)`
@@ -46,7 +48,7 @@ export const HazardBoardSecondRow = styled(HazardBoardRow)`
     }
 `
 
-export const HazardBoardInput = styled.input<{ $fontSize: number }>`
+export const HazardBoardInput = styled.input`
     border: none;
     outline: none;
     padding: 0;
@@ -57,13 +59,16 @@ export const HazardBoardInput = styled.input<{ $fontSize: number }>`
     width: 100%;
     height: 100%;
     font-family: 'hazard-board-font', sans-serif;
-    font-size: ${props => props.$fontSize}px;
 
     appearance: textfield;
     -moz-appearance: textfield;
     &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+
+    @container (min-width: 0) {
+        font-size: 100cqh;
     }
 `
 
