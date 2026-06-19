@@ -32,6 +32,7 @@ const HazardBoardRow = styled.div`
     border-color: black;
 
     container-type: size;
+    position: relative;
 `
 
 export const HazardBoardFirstRow = styled(HazardBoardRow)`
@@ -49,12 +50,13 @@ export const HazardBoardSecondRow = styled(HazardBoardRow)`
 `
 
 export const HazardBoardInput = styled.input`
+    position: absolute;
     border: none;
     outline: none;
     padding: 0;
 
     color: black;
-    background-color: #fe9900;
+    background: transparent;
     text-align: center;
     width: 100%;
     height: 100%;
