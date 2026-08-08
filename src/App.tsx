@@ -7,7 +7,7 @@ import Description from './components/Description'
 const App = () => {
   const [hinContent, setHinContent] = useState('')
   const [unContent, setUnContent] = useState('')
-  
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search)
     const hin = searchParams.get('hin')
