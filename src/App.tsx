@@ -3,15 +3,17 @@ import Sources from './components/Sources'
 import HazardBoardLine from './components/HazardBoardLine'
 import { useEffect, useState } from 'react'
 import Description from './components/Description'
+import AccountIcon from './components/Account/AccountIcon'
+import { AuthProvider } from './contexts/AuthContext'
 
 const App = () => {
   const [hinContent, setHinContent] = useState('')
   const [unContent, setUnContent] = useState('')
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search)
-    const hin = searchParams.get('hin')
-    const un = searchParams.get('un')
+    const hashParams = new URLSearchParams(location.hash.slice(1))
+    const hin = hashParams.get('hin')
+    const un = hashParams.get('un')
 
     if (hin) {
       setHinContent(hin)
@@ -35,29 +37,32 @@ const App = () => {
 
   useEffect(() => {
     const url = new URL(window.location.href)
-    const searchParams = new URLSearchParams()
+    const hashParams = new URLSearchParams()
     if (hinContent) {
-      searchParams.set('hin', hinContent)
+      hashParams.set('hin', hinContent)
     }
     if (unContent) {
-      searchParams.set('un', unContent)
+      hashParams.set('un', unContent)
     }
-    url.search = hinContent || unContent ? '?' + searchParams.toString() : ''
+    url.hash = hinContent || unContent ? hashParams.toString() : ''
     history.replaceState(null, '', url)
   }, [hinContent, unContent])
 
   return (
-    <Container>
-      <HazardBoard>
-        <HazardBoardLine first={true} content={hinContent} setContent={setHinContent} />
-        <HazardBoardLine first={false} content={unContent} setContent={setUnContent} />
-      </HazardBoard>
+    <AuthProvider>
+      <AccountIcon />
+      <Container>
+        <HazardBoard>
+          <HazardBoardLine first={true} content={hinContent} setContent={setHinContent} />
+          <HazardBoardLine first={false} content={unContent} setContent={setUnContent} />
+        </HazardBoard>
 
-      <div>
-        <Description hinContent={hinContent} unContent={unContent} />
-        <Sources />
-      </div>
-    </Container>
+        <div>
+          <Description hinContent={hinContent} unContent={unContent} />
+          <Sources />
+        </div>
+      </Container>
+    </AuthProvider>
   )
 }
 

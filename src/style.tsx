@@ -76,3 +76,36 @@ export const HazardBoardInput = styled.input`
 
 export const DescriptionContainer = styled.div``
 export const SourcesContainer = styled.div``
+
+export const StarButton = styled.button<{ $filled: boolean }>`
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.5rem;
+    color: ${({ $filled }) => ($filled ? '#fe9900' : 'currentColor')};
+    vertical-align: middle;
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.6;
+    }
+`
+
+export const AccountIconButton = styled.button`
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    background: Canvas;
+    color: CanvasText;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 500;
+`

@@ -30,3 +30,30 @@ export type Data = {
   un: {[name: string]: UnData}
   sources: Array<SourceData>
 }
+
+export type User = {
+  id: string,
+  mastodon_handle: string
+}
+
+export type FoundSubstance = {
+  un: number,
+  first_found: string,
+  last_found: string
+}
+
+export type Friend = {
+  user_id: string,
+  mastodon_handle: string,
+  substances_found: number
+}
+
+export type FriendInvite = {
+  invite_id: string,
+  from_handle: string,
+  created_at: string
+}
+
+export type RedirectResponse = {
+  redirect_url: string
+}
