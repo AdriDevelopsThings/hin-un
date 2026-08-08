@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-import { FoundSubstance, FriendInvite, Friend, User } from '../../types'
+import { FoundSubstance, Friend, ReceivedInvite, SentInvite, User } from '../../types'
 import {
-  acceptInvite, denyInvite, friendSubstances, inviteFriend, listFriends, listInvites, listSubstances
+  acceptInvite, denyInvite, friendSubstances, inviteFriend, listFriends, listReceivedInvites, listSentInvites,
+  listSubstances
 } from '../../utils/api'
 import { interpretUn } from '../../utils/interpreter'
 import {
@@ -29,16 +30,19 @@ export default function LoggedInView({ user }: Props) {
   const { logout } = useAuth()
   const [substances, setSubstances] = useState<FoundSubstance[] | null>(null)
   const [friends, setFriends] = useState<Friend[] | null>(null)
-  const [invites, setInvites] = useState<FriendInvite[] | null>(null)
+  const [receivedInvites, setReceivedInvites] = useState<ReceivedInvite[] | null>(null)
+  const [sentInvites, setSentInvites] = useState<SentInvite[] | null>(null)
   const [inviteHandle, setInviteHandle] = useState('')
   const [inviteError, setInviteError] = useState<string | null>(null)
+  const [inviteSuccess, setInviteSuccess] = useState<string | null>(null)
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null)
   const [friendDiffSubstances, setFriendDiffSubstances] = useState<FoundSubstance[] | null>(null)
 
   useEffect(() => {
     listSubstances().then(setSubstances).catch(() => setSubstances([]))
     listFriends().then(setFriends).catch(() => setFriends([]))
-    listInvites().then(setInvites).catch(() => setInvites([]))
+    listReceivedInvites().then(setReceivedInvites).catch(() => setReceivedInvites([]))
+    listSentInvites().then(setSentInvites).catch(() => setSentInvites([]))
   }, [])
 
   useEffect(() => {
@@ -52,23 +56,26 @@ export default function LoggedInView({ user }: Props) {
   const onInvite = async (e: FormEvent) => {
     e.preventDefault()
     setInviteError(null)
+    setInviteSuccess(null)
     try {
       await inviteFriend(inviteHandle)
+      setInviteSuccess(`Einladung an ${inviteHandle} gesendet.`)
       setInviteHandle('')
+      listSentInvites().then(setSentInvites).catch(() => {})
     } catch {
       setInviteError('Einladung fehlgeschlagen. Bitte das Mastodon-Handle prüfen.')
     }
   }
 
-  const onAccept = async (invite: FriendInvite) => {
+  const onAccept = async (invite: ReceivedInvite) => {
     await acceptInvite(invite.invite_id)
-    setInvites(prev => prev?.filter(i => i.invite_id !== invite.invite_id) ?? null)
+    setReceivedInvites(prev => prev?.filter(i => i.invite_id !== invite.invite_id) ?? null)
     listFriends().then(setFriends).catch(() => {})
   }
 
-  const onDeny = async (invite: FriendInvite) => {
+  const onDeny = async (invite: ReceivedInvite) => {
     await denyInvite(invite.invite_id)
-    setInvites(prev => prev?.filter(i => i.invite_id !== invite.invite_id) ?? null)
+    setReceivedInvites(prev => prev?.filter(i => i.invite_id !== invite.invite_id) ?? null)
   }
 
   const ownUns = new Set((substances ?? []).map(s => s.un))
@@ -105,19 +112,24 @@ export default function LoggedInView({ user }: Props) {
             type='text'
             placeholder='user@mastodon.social'
             value={inviteHandle}
-            onChange={e => setInviteHandle(e.target.value)}
+            onChange={e => {
+              setInviteHandle(e.target.value)
+              setInviteError(null)
+              setInviteSuccess(null)
+            }}
             required
           />
         </FieldRow>
         {inviteError && <p role='alert'>{inviteError}</p>}
+        {inviteSuccess && <p role='status'>{inviteSuccess}</p>}
         <SubmitButton type='submit'>Einladen</SubmitButton>
       </InviteForm>
 
-      {invites && invites.length > 0 && (
+      {receivedInvites && receivedInvites.length > 0 && (
         <>
-          <SectionHeading>Offene Einladungen</SectionHeading>
+          <SectionHeading>Einladungen von anderen</SectionHeading>
           <List>
-            {invites.map(invite => (
+            {receivedInvites.map(invite => (
               <ListItem key={invite.invite_id}>
                 {invite.from_handle}
                 <button type='button' onClick={() => onAccept(invite)}>Annehmen</button>
@@ -166,6 +178,19 @@ export default function LoggedInView({ user }: Props) {
               </DiffColumn>
             </DiffGrid>
           )}
+        </>
+      )}
+
+      {sentInvites && sentInvites.length > 0 && (
+        <>
+          <SectionHeading>Von dir gesendete Einladungen</SectionHeading>
+          <List>
+            {sentInvites.map(invite => (
+              <ListItem key={invite.invite_id}>
+                {invite.to_handle} — gesendet am {formatDate(invite.created_at)}
+              </ListItem>
+            ))}
+          </List>
         </>
       )}
     </div>

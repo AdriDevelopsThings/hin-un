@@ -105,6 +105,7 @@ export const InviteForm = styled.form`
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
+    margin-bottom: 1.5rem;
 `
 
 export const FriendRow = styled.button<{ $active: boolean }>`

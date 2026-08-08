@@ -48,9 +48,15 @@ export type Friend = {
   substances_found: number
 }
 
-export type FriendInvite = {
+export type ReceivedInvite = {
   invite_id: string,
   from_handle: string,
+  created_at: string
+}
+
+export type SentInvite = {
+  invite_id: string,
+  to_handle: string,
   created_at: string
 }
 

@@ -1,4 +1,4 @@
-import { FoundSubstance, FriendInvite, Friend, RedirectResponse, User } from '../types'
+import { FoundSubstance, Friend, ReceivedInvite, RedirectResponse, SentInvite, User } from '../types'
 
 const BASE_URL = import.meta.env.PUBLIC_API_BASE_URL ?? '/api'
 
@@ -80,8 +80,12 @@ export function inviteFriend(handle: string) {
   })
 }
 
-export function listInvites() {
-  return request<FriendInvite[]>('/friends/invites')
+export function listReceivedInvites() {
+  return request<ReceivedInvite[]>('/friends/invites/received')
+}
+
+export function listSentInvites() {
+  return request<SentInvite[]>('/friends/invites/sent')
 }
 
 export function acceptInvite(inviteId: string) {
