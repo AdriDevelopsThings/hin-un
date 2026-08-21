@@ -5,15 +5,9 @@ import { getSubstance, pushSubstance } from '../utils/api'
 
 type Status = 'checking' | 'unsaved' | 'saving' | 'saved' | 'error'
 
-type Props = {
-  un: number,
-  hinContent: string
-}
-
-export default function SaveSubstanceButton({ un, hinContent }: Props) {
+export default function SaveSubstanceButton({ un }: { un: number }) {
   const { user } = useAuth()
   const [status, setStatus] = useState<Status>('checking')
-  const hinFilled = hinContent.trim().length > 0
 
   useEffect(() => {
     if (!user) {
@@ -29,11 +23,8 @@ export default function SaveSubstanceButton({ un, hinContent }: Props) {
           return
         }
         if (found) {
-          // Already tracked: silently bump last_found, no click required -
-          // but a push still requires the hin field to be filled too.
-          if (hinFilled) {
-            pushSubstance(un).catch(() => {})
-          }
+          // Already tracked: silently bump last_found, no click required
+          pushSubstance(un).catch(() => {})
           setStatus('saved')
         } else {
           setStatus('unsaved')
@@ -48,14 +39,14 @@ export default function SaveSubstanceButton({ un, hinContent }: Props) {
     return () => {
       cancelled = true
     }
-  }, [un, user, hinFilled])
+  }, [un, user])
 
   if (!user || status === 'checking' || status === 'error') {
     return null
   }
 
   const onClick = () => {
-    if (status !== 'unsaved' || !hinFilled) {
+    if (status !== 'unsaved') {
       return
     }
     setStatus('saving')
@@ -64,9 +55,7 @@ export default function SaveSubstanceButton({ un, hinContent }: Props) {
       .catch(() => setStatus('unsaved'))
   }
 
-  const title = !hinFilled
-    ? 'Erst speicherbar, wenn auch die Gefahrnummer ausgefüllt ist'
-    : status === 'saved'
+  const title = status === 'saved'
       ? 'Bereits im Verlauf gespeichert'
       : 'Zum Verlauf hinzufügen'
 
@@ -74,7 +63,7 @@ export default function SaveSubstanceButton({ un, hinContent }: Props) {
     <StarButton
       type='button'
       $filled={status === 'saved'}
-      disabled={status !== 'unsaved' || !hinFilled}
+      disabled={status !== 'unsaved'}
       onClick={onClick}
       aria-pressed={status === 'saved'}
       title={title}

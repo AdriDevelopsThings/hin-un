@@ -28,7 +28,7 @@ export default function Description({ hinContent, unContent }: Props) {
         </div> : null}
       </div> : null}
       {unData ? <div>
-        <h2>UN Nummer <SaveSubstanceButton un={parseInt(unData.number, 10)} hinContent={hinContent} /></h2>
+        <h2>UN Nummer <SaveSubstanceButton un={parseInt(unData.number, 10)} /></h2>
         <ul>
           <li>Stoff: {unData.description}</li>
           <li>Klasse: {unData.class}</li>
